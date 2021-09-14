@@ -18,7 +18,18 @@ export default class SignUp extends Component {
           <input type="email" placeholder="Email" required />
         </div>
         <div className="field">
-          <input type="number" placeholder="Contact Number" required />
+          <input
+            type="number"
+            placeholder="Contact Number"
+            size="10"
+            required
+          />
+        </div>
+        <div className="field">
+          <input type="password" placeholder="Password" required />
+        </div>
+        <div className="field">
+          <input type="password" placeholder="Confirm Password" required />
         </div>
         <div className="field">
           <button> SignUp</button>
