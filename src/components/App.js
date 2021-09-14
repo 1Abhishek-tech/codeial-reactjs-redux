@@ -3,14 +3,8 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import { Home, Navbar, Page404 } from '.';
+import { Home, Navbar, Page404, Login, SignUp } from '.';
 
-export const Login = () => {
-  return <div>Login</div>;
-};
-export const SignUp = () => {
-  return <div>SignUp</div>;
-};
 export const Logout = () => {
   return <div>Logout</div>;
 };
