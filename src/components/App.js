@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
-import { PostsList } from '.';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import { Navbar } from '.';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { Home, Navbar, Page404 } from '.';
 
 export const Login = () => {
   return <div>Login</div>;
@@ -12,21 +11,26 @@ export const Login = () => {
 export const SignUp = () => {
   return <div>SignUp</div>;
 };
-export const Home = () => {
-  return <div>Home</div>;
+export const Logout = () => {
+  return <div>Logout</div>;
 };
+// export const Home = (props) => {
+//   console.log('props ', props);
+//   return <div>Home</div>;
+// };
 
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
   }
   render() {
+    const { posts } = this.props;
     return (
       <Router>
         <div>
           <Navbar />
           {/* <PostsList posts={this.props.posts} /> */}
-          <ul>
+          {/* <ul>
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -36,11 +40,20 @@ class App extends React.Component {
             <li>
               <Link to="/signup">SignUp</Link>
             </li>
-          </ul>
-          ;
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
+          </ul> */}
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => {
+                return <Home {...props} posts={posts} />;
+              }}
+            />
+            <Route exact path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/signup" component={SignUp} />
+            <Route component={Page404} />
+          </Switch>
         </div>
       </Router>
     );
