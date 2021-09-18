@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
 
 class Login extends React.Component {
   constructor(props) {
@@ -25,15 +27,23 @@ class Login extends React.Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
+    const { email, password } = this.state;
     // console.log('this.emailInputRef', this.emailInputRef);
     // console.log('this.passwordInputRef', this.passwordInputRef);
     console.log('this.state', this.state);
-    alert('Login Successfully');
+    if (email && password) {
+      this.props.dispatch(login(email, password));
+    }
+    if (this.props.isLoggedin) {
+      alert('Login Successfully');
+    }
   };
   render() {
+    const { inProgress, error } = this.props.auth;
     return (
       <form className="login-form">
         <span className="login-signup-header">Login</span>
+        {error && <div className="alert error-dialog">{error}</div>}
         <div className="field">
           <input
             type="email"
@@ -55,11 +65,22 @@ class Login extends React.Component {
           />
         </div>
         <div className="field">
-          <button onClick={this.handleFormSubmit}> Login</button>
+          {inProgress ? (
+            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+              Logging in ...
+            </button>
+          ) : (
+            <button onClick={this.handleFormSubmit}>Log In</button>
+          )}
         </div>
       </form>
     );
   }
 }
+function mapStateToProp(state) {
+  return {
+    auth: state.auth,
+  };
+}
 
-export default Login;
+export default connect(mapStateToProp)(Login);

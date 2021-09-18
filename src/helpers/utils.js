@@ -3,7 +3,7 @@ export function getFormBody(params) {
   for (let property in params) {
     let encodedKey = encodeURIComponent(property);
     let encodedValue = encodeURIComponent(params[property]);
-    FormBody(encodedKey + '=' + encodedValue);
+    FormBody.push(encodedKey + '=' + encodedValue);
   }
   return FormBody.join('&');
 }
