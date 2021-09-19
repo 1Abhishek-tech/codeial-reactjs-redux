@@ -57,7 +57,7 @@ export function login(email, password) {
   };
 }
 
-export default function authenticateUser(user) {
+export function authenticateUser(user) {
   return {
     type: AUTHENTICATE_USER,
     user,

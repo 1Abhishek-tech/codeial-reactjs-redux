@@ -4,7 +4,8 @@ import { fetchPosts } from '../actions/posts';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home, Navbar, Page404, Login, SignUp } from '.';
-import * as jwtDecode from 'jwt-decode';
+import * as jwtDecode from 'jwt-token';
+import { authenticateUser } from '../actions/auth';
 
 export const Logout = () => {
   return <div>Logout</div>;
@@ -22,6 +23,13 @@ class App extends React.Component {
     if (token) {
       const user = jwtDecode(token);
       console.log('user', user);
+      this.props.dispatch(
+        authenticateUser({
+          name: user.name,
+          _id: user._id,
+          email: user.email,
+        })
+      );
     }
   }
   render() {
