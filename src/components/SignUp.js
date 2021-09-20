@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signup, signupStart } from '../actions/auth';
+import { Redirect } from 'react-router';
+import { signup, signupStart, clearAuthState } from '../actions/auth';
 
 class SignUp extends Component {
   constructor(props) {
@@ -14,34 +15,14 @@ class SignUp extends Component {
       confirmPassword: '',
     };
   }
-  handleFirstNameChange = (e) => {
-    console.log(e.target.value);
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
+  }
+
+  handleInputChange = (field, value) => {
+    console.log(value);
     this.setState({
-      firstName: e.target.value,
-    });
-  };
-  handleLastNameChange = (e) => {
-    console.log(e.target.value);
-    this.setState({
-      lastName: e.target.value,
-    });
-  };
-  handleEmailChange = (e) => {
-    console.log(e.target.value);
-    this.setState({
-      email: e.target.value,
-    });
-  };
-  handlePasswordChange = (e) => {
-    console.log(e.target.value);
-    this.setState({
-      password: e.target.value,
-    });
-  };
-  handleConfirmPasswordChange = (e) => {
-    console.log(e.target.value);
-    this.setState({
-      confirmPassword: e.target.value,
+      [field]: value,
     });
   };
 
@@ -55,24 +36,29 @@ class SignUp extends Component {
     }
   };
   render() {
-    const { inProgress, error } = this.props.auth;
+    const { inProgress, error, isLoggedin } = this.props.auth;
+    if (isLoggedin) {
+      return <Redirect to="/" />;
+    }
     return (
       <form className="login-form">
         <span className="login-signup-header">SignUp</span>
         {error && <div className="alert error-dialog">{error}</div>}
         <div className="field">
           <input
-            type="fname"
+            type="text"
             placeholder="First Name"
-            onChange={this.handleFirstNameChange}
             required
+            onChange={(e) =>
+              this.handleInputChange('firstName', e.target.value)
+            }
           />
         </div>
         <div className="field">
           <input
-            type="lname"
+            type="text"
             placeholder="Last Name"
-            onChange={this.handleLastNameChange}
+            onChange={(e) => this.handleInputChange('lastName', e.target.value)}
             required
           />
         </div>
@@ -81,7 +67,7 @@ class SignUp extends Component {
           <input
             type="email"
             placeholder="Email"
-            onChange={this.handleEmailChange}
+            onChange={(e) => this.handleInputChange('email', e.target.value)}
             required
           />
         </div>
@@ -90,7 +76,7 @@ class SignUp extends Component {
           <input
             type="password"
             placeholder="Password"
-            onChange={this.handlePasswordChange}
+            onChange={(e) => this.handleInputChange('password', e.target.value)}
             required
           />
         </div>
@@ -98,7 +84,9 @@ class SignUp extends Component {
           <input
             type="password"
             placeholder="Confirm Password"
-            onChange={this.handleConfirmPasswordChange}
+            onChange={(e) =>
+              this.handleInputChange('confirmPassword', e.target.value)
+            }
             required
           />
         </div>

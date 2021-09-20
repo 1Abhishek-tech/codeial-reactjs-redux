@@ -2,6 +2,7 @@
 import { APIUrls } from '../helpers/urls';
 import {
   AUTHENTICATE_USER,
+  CLEAR_AUTH_STATE,
   LOGIN_FAILED,
   LOGIN_START,
   LOGIN_SUCCESS,
@@ -115,5 +116,11 @@ export function signupFailed(error) {
   return {
     type: SIGNUP_FAILED,
     error,
+  };
+}
+
+export function clearAuthState() {
+  return {
+    type: CLEAR_AUTH_STATE,
   };
 }
