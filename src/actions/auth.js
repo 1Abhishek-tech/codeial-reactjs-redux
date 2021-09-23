@@ -71,7 +71,7 @@ export function logoutUser() {
   };
 }
 
-export function signup(firstName, lastName, email, password, confirmPassword) {
+export function signup(Name, email, password, confirmPassword) {
   return (dispatch) => {
     const url = APIUrls.signup();
     fetch(url, {
@@ -80,8 +80,7 @@ export function signup(firstName, lastName, email, password, confirmPassword) {
         'Content-Type': 'application/x-ww-form-urlencoded',
       },
       body: getFormBody({
-        firstName,
-        lastName,
+        Name,
         email,
         password,
         confirmPassword,

@@ -8,8 +8,7 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
+      Name: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -28,11 +27,10 @@ class SignUp extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    const { firstName, lastName, email, password, confirmPassword } =
-      this.state;
-    if (firstName && lastName && email && password === confirmPassword) {
+    const { Name, email, password, confirmPassword } = this.state;
+    if (Name && email && password === confirmPassword) {
       this.props.dispatch(signupStart());
-      this.props.dispatch(signup(firstName, lastName, email, password));
+      this.props.dispatch(signup(Name, email, password, confirmPassword));
     }
   };
   render() {
@@ -47,19 +45,9 @@ class SignUp extends Component {
         <div className="field">
           <input
             type="text"
-            placeholder="First Name"
+            placeholder="Name"
             required
-            onChange={(e) =>
-              this.handleInputChange('firstName', e.target.value)
-            }
-          />
-        </div>
-        <div className="field">
-          <input
-            type="text"
-            placeholder="Last Name"
-            onChange={(e) => this.handleInputChange('lastName', e.target.value)}
-            required
+            onChange={(e) => this.handleInputChange('Name', e.target.value)}
           />
         </div>
 

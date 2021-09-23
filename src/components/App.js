@@ -6,14 +6,26 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home, Navbar, Page404, Login, SignUp } from '.';
 import * as jwtDecode from 'jwt-token';
 import { authenticateUser } from '../actions/auth';
+import { Redirect } from 'react-router';
 
 export const Logout = () => {
   return <div>Logout</div>;
 };
-// export const Home = (props) => {
-//   console.log('props ', props);
-//   return <div>Home</div>;
-// };
+const Settings = () => {
+  return <div>Setting Page</div>;
+};
+
+const PrivateRoute = (privateRouteProps) => {
+  const { isLoggedin, path, component: Component } = privateRouteProps;
+  return (
+    <Route
+      path={path}
+      render={(props) => {
+        return isLoggedin ? <Component {...props} /> : <Redirect to="/login" />;
+      }}
+    />
+  );
+};
 
 class App extends React.Component {
   componentDidMount() {
@@ -33,23 +45,11 @@ class App extends React.Component {
     }
   }
   render() {
-    const { posts } = this.props;
+    const { posts, auth } = this.props;
     return (
       <Router>
         <div>
           <Navbar />
-          {/* <PostsList posts={this.props.posts} /> */}
-          {/* <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">SignUp</Link>
-            </li>
-          </ul> */}
           <Switch>
             <Route
               exact
@@ -61,6 +61,11 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/signup" component={SignUp} />
+            <PrivateRoute
+              path="/settings"
+              component={Settings}
+              isLoggedin={auth.isLoggedin}
+            />
             <Route component={Page404} />
           </Switch>
         </div>
@@ -71,6 +76,7 @@ class App extends React.Component {
 function mapStateToProp(state) {
   return {
     posts: state.posts,
+    auth: state.auth,
   };
 }
 
