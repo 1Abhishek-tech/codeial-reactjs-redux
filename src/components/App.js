@@ -7,12 +7,10 @@ import { Home, Navbar, Page404, Login, SignUp } from '.';
 import * as jwtDecode from 'jwt-token';
 import { authenticateUser } from '../actions/auth';
 import { Redirect } from 'react-router';
+import { Settings } from '.';
 
 export const Logout = () => {
   return <div>Logout</div>;
-};
-const Settings = () => {
-  return <div>Setting Page</div>;
 };
 
 const PrivateRoute = (privateRouteProps) => {
