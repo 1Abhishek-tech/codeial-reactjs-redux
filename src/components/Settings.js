@@ -6,7 +6,7 @@ class Settings extends Component {
     super(props);
 
     this.state = {
-      name: '',
+      name: props.auth.user.name,
       password: '',
       confirmPassword: '',
       editMode: false,
@@ -32,17 +32,18 @@ class Settings extends Component {
           <div className="field-label">Email</div>
           <div className="field-value">{user.email}</div>
         </div>
-        {this.state.editMode ? (
-          <input
-            value={this.state.name}
-            onChange={(e) => this.handleChange('name', e.target.value)}
-          />
-        ) : (
-          <div className="field">
-            <div className="field-label">Name</div>
+
+        <div className="field">
+          <div className="field-label">Name</div>
+          {this.state.editMode ? (
+            <input
+              value={this.state.name}
+              onChange={(e) => this.handleChange('name', e.target.value)}
+            />
+          ) : (
             <div className="field-value">{user.name}</div>
-          </div>
-        )}
+          )}
+        </div>
         {this.state.editMode && (
           <div className="field">
             <div className="field-label">New Password </div>
@@ -69,10 +70,22 @@ class Settings extends Component {
           {this.state.editMode ? (
             <button className="button save-btn">Save</button>
           ) : (
-            <button className="button edit-btn">Edit Profile</button>
+            <button
+              className="button edit-btn"
+              onClick={() => this.handleChange('editMode', true)}
+            >
+              Edit Profile
+            </button>
           )}
         </div>
-        {this.state.editMode && <div className="go-back">Go Back </div>}
+        {this.state.editMode && (
+          <div
+            className="go-back"
+            onClick={() => this.handleChange('editMode', false)}
+          >
+            Go Back{' '}
+          </div>
+        )}
       </div>
     );
   }
