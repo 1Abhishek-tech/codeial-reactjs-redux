@@ -8,6 +8,7 @@ import * as jwtDecode from 'jwt-token';
 import { authenticateUser } from '../actions/auth';
 import { Redirect } from 'react-router';
 import { Settings } from '.';
+import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 
 export const Logout = () => {
   return <div>Logout</div>;
@@ -40,7 +41,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
     if (token) {
       const user = jwtDecode(token);
       console.log('user', user);

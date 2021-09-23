@@ -14,3 +14,7 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILED = 'SIGNUP_FAILED';
 
 export const CLEAR_AUTH_STATE = 'CLEAR_AUTH_STATE';
+
+//update profile action types
+export const EDIT_USER_SUCCESSFUL = 'EDIT_USER_SUCCESSFUL';
+export const EDIT_USER_FAILED = 'EDIT_USER_FAILED';

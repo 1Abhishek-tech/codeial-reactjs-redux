@@ -83,7 +83,7 @@ class Settings extends Component {
             className="go-back"
             onClick={() => this.handleChange('editMode', false)}
           >
-            Go Back{' '}
+            Go Back
           </div>
         )}
       </div>
