@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Home, Navbar, Page404, Login, SignUp } from '.';
+import { Home, Navbar, Page404, Login, SignUp, UserProfile } from '.';
 import * as jwtDecode from 'jwt-token';
 import { authenticateUser } from '../actions/auth';
 import { Redirect } from 'react-router';
@@ -74,6 +74,11 @@ class App extends React.Component {
             <PrivateRoute
               path="/settings"
               component={Settings}
+              isLoggedin={auth.isLoggedin}
+            />
+            <PrivateRoute
+              path="/user/:userId"
+              component={UserProfile}
               isLoggedin={auth.isLoggedin}
             />
             <Route component={Page404} />
