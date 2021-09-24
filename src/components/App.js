@@ -9,6 +9,7 @@ import { authenticateUser } from '../actions/auth';
 import { Redirect } from 'react-router';
 import { Settings } from '.';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
+import { fetchUserFriends } from '../actions/profile';
 
 export const Logout = () => {
   return <div>Logout</div>;
@@ -52,10 +53,11 @@ class App extends React.Component {
           email: user.email,
         })
       );
+      this.props.dispatch(fetchUserFriends());
     }
   }
   render() {
-    const { posts, auth } = this.props;
+    const { posts, auth, friends } = this.props;
     return (
       <Router>
         <div>
@@ -65,7 +67,14 @@ class App extends React.Component {
               exact
               path="/"
               render={(props) => {
-                return <Home {...props} posts={posts} />;
+                return (
+                  <Home
+                    {...props}
+                    posts={posts}
+                    friends={friends}
+                    isLoggedin={auth.isLoggedin}
+                  />
+                );
               }}
             />
             <Route exact path="/login" component={Login} />
@@ -92,6 +101,7 @@ function mapStateToProp(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    friends: state.friends,
   };
 }
 

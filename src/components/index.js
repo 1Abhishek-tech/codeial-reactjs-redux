@@ -7,6 +7,8 @@ import Login from './Login';
 import SignUp from './SignUp';
 import Settings from './Settings';
 import UserProfile from './UserProfile';
+import FriendsListItem from './FriendsListItem';
+import FriendsList from './FriendsList';
 
 export {
   PostsList,
@@ -18,4 +20,6 @@ export {
   SignUp,
   Settings,
   UserProfile,
+  FriendsList,
+  FriendsListItem,
 };
