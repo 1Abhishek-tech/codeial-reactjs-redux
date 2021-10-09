@@ -16,6 +16,9 @@ class CreatePost extends Component {
   };
   handleOnClick = (e) => {
     this.props.dispatch(createPost(this.state.content));
+    this.setState({
+      content: ' ',
+    });
   };
   render() {
     return (
